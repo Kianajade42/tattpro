@@ -1,15 +1,24 @@
 class TattoosController < ApplicationController
 
+# get '/tattoos/index' do
+#    tattoos = current_user.tattoos
+#    erb :"tattoos/index"
+# end
 get '/tattoos' do
-   @tattoos = current_user.tattoos
-   erb :"tattoos/index"
-end
+    if logged_in?
+      @user = User.find(session[:user_id])
+      @todos = Tattoo.where(user_id: current_user)
+      erb :'/tattoos/index'
+    else
+      redirect '/login'
+    end
+  end
 
 get '/tattoos/new' do
     erb :"tattoos/new"
 end
 
- post '/tattoos' do
+ post '/tattoos/index' do
      tattoo = Tattoo.new(params[:tattoo])
      if tattoo.save
         current_user.tattoos.create(params[:tattoo])

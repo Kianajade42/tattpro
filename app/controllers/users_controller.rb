@@ -1,45 +1,42 @@
 class UsersController < ApplicationController
 
- get '/users/:id' do
-    if !logged_in?
-      redirect '/users/show'
-    end
 
-    @user = User.find(params[:id])
-    if !@user.nil? && @user == current_user
-      erb :'users/show'
-    else
-      redirect '/login'
-    end
-  end
 
-    get "/signup" do
+    get "/users/signup" do
+        @user = User.new
         erb :"users/new"
     end 
 
- post '/signup' do 
-      @user = User.create(:username => params[:username], :password => params[:password])
-      if @user.save
-      session[:user_id] = @user.id
-     redirect "/users/#{user.id}"
+ post '/users/signup' do 
+      @user = User.create(params)
+      if @username.save
+      session[:username_id] = @username.id 
+      flash[:success] = 'Successfully created user account.' 
+     redirect "/users/show"
       else
-            erb :'/users/new'
-    end
+        flash[:danger] = 'Please enter valid registration data'
+        redirect '/signup'
   end
+end
 
-    get "/login" do
+get "/users/login" do
+        @user = User.all 
         erb :"users/login"
     end 
 
-    post "/login" do
-        user = User.find_by(:username => params[:username])
-        if user && user.authenticate(params[:password])
-            session[:user_id] = user.id 
-            redirect "/users/#{user.id}"
-        else 
-            redirect "/login"
-        end
+
+post '/users/login' do
+@user = User.find_by(username: params[:username]) 
+  if @user&.authenticate(params[:password])
+    session.id
+    erb :'/users/show'
     end
+end
+
+ get '/users/show' do
+    session.id
+    erb :"users/show"
+  end
 
 
     get "/logout" do

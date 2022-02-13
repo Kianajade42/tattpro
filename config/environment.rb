@@ -1,6 +1,6 @@
 
 # ENV['SINATRA_ENV'] ||= "development"
-
+require 'sinatra'
 require 'bundler/setup'
 require 'capybara/dsl'
 Bundler.require
