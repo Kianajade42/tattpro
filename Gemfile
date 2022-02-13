@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
@@ -17,13 +17,13 @@ gem 'thin'
 gem 'shotgun'
 gem 'pry'
 gem "tux"
+gem "bcrypt", "~> 3.1"
 
-
-group :test do
+group :development do
  
   gem 'rspec'
   gem 'capybara'
   gem 'rack-test'
   gem 'database_cleaner'
 end
-gem "bcrypt", "~> 3.1"
+

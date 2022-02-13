@@ -7,9 +7,12 @@ configure do
     enable :sessions
     set :session_secret, 'top_session'
   end
-
+# get '/' do
+#   @users = User.all
+#   puts "Grabbed #{@users.size} user(s) from database"
+# end
 get "/" do
-        erb :welcome
+        erb :welcome, { :locals => params, :layout => :layout }
     end
 
     helpers do

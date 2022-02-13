@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-    <title>TattApp</title>
+    <title>TattPro</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="stylesheet" href="/stylesheets/main.css" />
+<link href="<%= url('/styles.css') %>" rel="stylesheet" type="text/css" />
+    <%# <link rel="stylesheet" href="/public/styles.css" /> %>
   </head>
   <body>
     <div class="wrapper">
@@ -19,13 +19,13 @@
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2020 <strong>TattApp</strong></small><br>
+        <small>&copy; 2020 <strong>TattPro</strong></small><br>
         <% if logged_in? %>
-          
+          <small> <%= current_user.username%></small><br>
           <small><a href="/logout">Log Out</a></small>
           <% end %>
       </footer>
-    </div>
+    </div> 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <!--[if lt IE 7]>
@@ -34,3 +34,4 @@
     <![endif]-->
   </body>
 </html>
+
