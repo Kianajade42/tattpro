@@ -1,9 +1,34 @@
-<h1><%= @tattoo.name %></h1>
-<h2>Client: <%= @tattoo.client %></h2>
+
+<html>
+<head>
+<style>
+h1 {text-align: center;}
+h2 {text-align: center;}
+h3 {text-align: center;}
+</style>
+</head>
+<body>
+
+ <% @tattoos.each do |tattoo|  %>
+<h1> Client: <%= tattoo.client %> </h1>
+<h2> Tattoo: <%= tattoo.name %> </h2>
+<p>
+<b> Placement:</b> <%= tattoo.placement %> <br><br>
+<b> description:</b> <%= tattoo.description %> <br><br>
+<a href="/tattoos/edit/:id">Edit <% tattoo.id%></a>
+
+ </p>
+ 
 
 
-<p><b>Placement:</b> <%= @tattoo.placement %><br><br>
-<b>Description:</b> <%= @tattoo.description %><br>
-</p>
-<br>
+
+ <% tattoo.id %>
+    <form method="POST" action="/tattoos/<%= tattoo.id %>">
+        <input type="hidden" value="DELETE" name="_method"><br>
+        <input type="submit" value="delete">
+
+
+<% end %>
+
 </body>
+

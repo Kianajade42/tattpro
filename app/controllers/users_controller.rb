@@ -1,23 +1,18 @@
 class UsersController < ApplicationController
 
 
-
     get "/users/signup" do
-        @user = User.new
+        @user = User.new(username: params[:username])
         erb :"users/new"
     end 
 
  post '/users/signup' do 
       @user = User.create(params)
-      if @username.save
-      session[:username_id] = @username.id 
-      flash[:success] = 'Successfully created user account.' 
-     redirect "/users/show"
-      else
-        flash[:danger] = 'Please enter valid registration data'
-        redirect '/signup'
+      @user.save
+      session.id
+       erb :'/users/show'
   end
-end
+
 
 get "/users/login" do
         @user = User.all 

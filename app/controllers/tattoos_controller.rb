@@ -1,65 +1,55 @@
 class TattoosController < ApplicationController
 
-# get '/tattoos/index' do
-#    tattoos = current_user.tattoos
-#    erb :"tattoos/index"
-# end
-get '/tattoos' do
-    if logged_in?
-      @user = User.find(session[:user_id])
-      @todos = Tattoo.where(user_id: current_user)
-      erb :'/tattoos/index'
-    else
-      redirect '/login'
-    end
-  end
+ get '/tattoos/show' do
+ logged_in?
+  @user = current_user 
+#   @tattoos = current_user.tattoos 
+  @tattoos = Tattoo.all
+    erb :'tattoos/show'
+end
+ 
 
 get '/tattoos/new' do
-    erb :"tattoos/new"
+    erb :"/tattoos/new"
 end
 
- post '/tattoos/index' do
-     tattoo = Tattoo.new(params[:tattoo])
-     if tattoo.save
-        current_user.tattoos.create(params[:tattoo])
-        redirect "/tattoos"
-     else
-        @errors = tattoo.errors.full_messages.join(" - ")
-        erb :'/tattoos/new'
- end
- end
- get '/tattoo/:id' do
-        @tattoo = Tattoo.find_by(id: params[:id])
-        erb :"tattoos/show"
+ post '/tattoos' do
+     @tattoos = Tattoo.new(params[:tattoo])
+     @tattoos.save
+     erb :"/tattoos/new"
+end
+
+ get '/tattoos/:id' do
+     #@tattoos = Tattoo.find_by(id: params[:id])
+      @tattoos = Tattoo.all
+        erb :"/tattoos/show"
     end
 
-    get '/tattoos/:id/edit' do
-        @tattoo = Tattoo.find_by(id: params[:id])
-        if @tattoo.user == current_user
-            erb :"tattoos/edit"
-        else
-            redirect "/tattoos"
-        end
+ get '/tattoos/edit/:id' do
+        @tattoos = Tattoo.find_by_id(params[:id])
+         erb :"tattoos/edit"
     end 
 
-    patch '/tattoos/:id' do
-        @tattoo = Tattoo.find_by(id: params[:id])
-        if @tattoo.user == current_user
-            @tattoo.update(params[:tattoo])
-            redirect "/tattoos/#{@tattoo.id}"
-        else 
-            redirect "/tattoos"
-        end
-    end
+post '/tattoos/show' do
+    
+    binding.pry
+    
+    @tattoos = Tattoo.all
+    erb :"/tattoos/show"
+end
 
-    delete '/tattoos/:id' do
-        @tattoo = Tattoo.find_by(id: params[:id])
-        if @tattoo.user == current_user
-            @tattoo.destroy
-            redirect '/tattoos'
-        else
-            redirect '/tattoos'
-        end 
+
+  patch '/tattoos/:id' do
+        @tattoos = Tattoo.where(id: params[:id])
+        @tattoos.update(params[:tattoo])
+            redirect "/tattoos/edit"
+
+end
+
+    delete '/tattoos/:id' do 
+        @tattoos = Tattoo.find_by_id(params[:id])
+            @tattoos.delete
+            erb :'/tattoos/index'
     end 
-
+ 
 end

@@ -1,10 +1,8 @@
-<h1> Your work </h1>
+<h1> Your work </h1> <nbsp> <a href="/tattoos/new">Add new artwork</a> <nbsp>
 
 <ul>
 <% @tattoos.each do |tattoo| %>
+<li><a href="/tattoos/<%= tattoo.id %>"><%= tattoo.name %></a> for <%= @tattoos.client %></li>
+<% end %>
+</ul>
 
-<li><a href="/tattoos/<%= tattoo.id %>"><%= tattoo.name %></a> on  <%= tattoo.client %></li>
-    
-<% end %></ul>
-
-<a href="/tattoos/new">Add new artwork</a>
