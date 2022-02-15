@@ -1,8 +1,18 @@
-<h1> Your work </h1> <nbsp> <a href="/tattoos/new">Add new artwork</a> <nbsp>
+
+
+<h1> Your work </h1>
+<a href="/tattoos/show">View portfolio</a><br>
+<a href="/tattoos/new">Add new</a><br>
+<a href="/tattoos/edit">Edit</a><br>
 
 <ul>
+<%# <input type="image"  alt="Submit" width="48" height="48"> %>
 <% @tattoos.each do |tattoo| %>
-<li><a href="/tattoos/<%= tattoo.id %>"><%= tattoo.name %></a> for <%= @tattoos.client %></li>
+<p>
+<li><%=tattoo.name.upcase %>
+on <%=tattoo.client%>
+</li>
+<p>
 <% end %>
 </ul>
 

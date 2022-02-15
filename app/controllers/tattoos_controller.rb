@@ -1,54 +1,55 @@
 class TattoosController < ApplicationController
-
- get '/tattoos/show' do
+#login
+ get '/tattoos' do
  logged_in?
   @user = current_user 
-#   @tattoos = current_user.tattoos 
   @tattoos = Tattoo.all
-    erb :'tattoos/show'
+    erb :'/tattoos/index'
 end
  
-
+#new artwork
 get '/tattoos/new' do
+    @tattoos = Tattoo.all
     erb :"/tattoos/new"
 end
 
- post '/tattoos' do
+#creatingnewtattoo
+ post '/tattoos/new' do
      @tattoos = Tattoo.new(params[:tattoo])
-     @tattoos.save
+     @tattoos.save = @current_user
      erb :"/tattoos/new"
 end
 
- get '/tattoos/:id' do
-     #@tattoos = Tattoo.find_by(id: params[:id])
+#editing
+ get '/tattoos/edit' do
       @tattoos = Tattoo.all
-        erb :"/tattoos/show"
+        erb :"/tattoos/edit"
     end
-
- get '/tattoos/edit/:id' do
-        @tattoos = Tattoo.find_by_id(params[:id])
-         erb :"tattoos/edit"
-    end 
+    #displayportfolio
+get '/tattoos/show' do
+    @tattoos = Tattoo.all
+    erb :"tattoos/show"
+  end
 
 post '/tattoos/show' do
-    
-    binding.pry
-    
     @tattoos = Tattoo.all
-    erb :"/tattoos/show"
+    erb :"tattoos/show"
+  end
+
+post '/tattoos/:id' do
+    @tattoos = Tattoo.all
+    erb :"/tattoos/edit"
 end
 
-
-  patch '/tattoos/:id' do
-        @tattoos = Tattoo.where(id: params[:id])
-        @tattoos.update(params[:tattoo])
-            redirect "/tattoos/edit"
-
+#editingportfolio
+patch '/tattoos' do
+      @tattoos = Tattoo.all
+      @tattoos.update(params[:tattoo])
+         erb  :"/tattoos/show"
 end
 
     delete '/tattoos/:id' do 
-        @tattoos = Tattoo.find_by_id(params[:id])
-            @tattoos.delete
+        @tattoos = Tattoo.delete(params[:id])
             erb :'/tattoos/index'
     end 
  

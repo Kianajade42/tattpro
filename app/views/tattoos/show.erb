@@ -6,26 +6,25 @@ h1 {text-align: center;}
 h2 {text-align: center;}
 h3 {text-align: center;}
 </style>
+<a href="/tattoos">quick view</a>
 </head>
 <body>
 
  <% @tattoos.each do |tattoo|  %>
-<h1> Client: <%= tattoo.client %> </h1>
-<h2> Tattoo: <%= tattoo.name %> </h2>
-<p>
+ <p>
+<h2><%= tattoo.name.upcase %> </h2>
+<b> Client: <%= tattoo.client %></b><br><br>
 <b> Placement:</b> <%= tattoo.placement %> <br><br>
 <b> description:</b> <%= tattoo.description %> <br><br>
-<a href="/tattoos/edit/:id">Edit <% tattoo.id%></a>
-
  </p>
  
 
 
-
- <% tattoo.id %>
-    <form method="POST" action="/tattoos/<%= tattoo.id %>">
-        <input type="hidden" value="DELETE" name="_method"><br>
-        <input type="submit" value="delete">
+<%# <a href="/tattoos/:id">Edit <% tattoo.id%></a>
+ <%# <% tattoo.id %>
+    <%# <form method="POST" action="/tattoos/<%= tattoo.id %>
+        <%# <input type="hidden" value="DELETE" name="_method"><br>
+        <input type="submit" value="delete"> %> 
 
 
 <% end %>
