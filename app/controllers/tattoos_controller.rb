@@ -1,21 +1,11 @@
 class TattoosController < ApplicationController
         #displayportfolio
-get '/tattoos/show' do
-    @tattoos = Tattoo.all
+get '/tattoos' do
+    @tattoos = current_user.all
     erb :"tattoos/show"
+
   end
-
-#login
- get '/tattoos' do
-#  logged_in?
-#   @current_user 
-#   @tattoos = Tattoo.find_by(params[:id])
-#   find_by(params[:user_id])
-  @tattoos = Tattoo.all
-    erb :'tattoos/index'
-end
-
- #new artwork
+#new artwork
 get '/tattoos/new' do
     erb :'tattoos/new'
 end
@@ -28,32 +18,42 @@ post '/tattoos' do
     redirect "/tattoos/show"
   end
 
-post '/tattoos' do
-    @tattoos = Tattoo.all
-    erb :"tattoos/edit"
-end
-
-#editingform
- get '/tattoos/edit' do
-    # @tattoos = Tattoo.find_by(:id (params[:id])
-      @tattoos = Tattoo.all
-    #  if @tattoos.user == current_user
+ get '/tattoos/:id' do
+        @tattoos = Tattoo.find_by(id: params[:id]) 
         erb :"tattoos/edit"
     end
-    
+
+
+    get '/tattoos/:id/edit' do
+        @tattoo = Tattoo.find_by(id: params[:id])
+        if @tattoos.user == current_user
+            erb :"tattoos/edit"
+        else
+            redirect "/tattoos"
+        end
+    end 
+
 #editingportfolio
-patch '/tattoos' do
-   # @current_user
-      @tattoos = Tattoo.find_by_id(params[:id])
+patch '/tattoos/:id' do
+      @tattoos = Tattoo.find_by(id: params[:id])
+      if @book.user == current_user
+         @tattoos.update(params[:tattoo])
+         redirect "/tattoos/#{@tattoo.id}"
+      else
+        redirect "/tattoos"  
+end
+end
     
-      @tattoos.update(name: params[:name], client: params[:client], placement: params[:placement], description: params[:discription],)
-         redirect to 'tattoos'
+delete  '/tattoos/index' do
+        @tattoos = Tattoo.find_by(id: params[:id])
+        if @tattoos.user == current_user
+           @tattoos.destroy
+         redirect '/tattoos'
+        else
+             redirect '/tattoos'
+        end
+end
 end
 
- delete "/tattoos/index"  do
-@tattoos = Tattoo.find_by(params[:tattoo])
-@tattoos.destroy
 
-redirect to '/tattoos'
-end
-end
+ 

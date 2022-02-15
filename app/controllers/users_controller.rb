@@ -1,44 +1,37 @@
 class UsersController < ApplicationController
 
-
-    get "/users/signup" do
-        @user = User.new(username: params[:username])
+    get "/new" do
         erb :"users/new"
     end 
 
- post '/users/signup' do 
-  
-      @user = User.new(params)
-      @user.save
-      session.id = current_user
-      
-      erb :'/users/show'
-  end
 
+    post "/new" do
+        user = User.new(params[:user])
+        if user.save
+            session[:user_id] = user.id 
+            redirect "/users/#{user.id}"
+        else 
+            @errors = user.errors.full_messages.join(" - ")
+            erb :'/users/new'
+        end
+    end
 
-get "/users/login" do
-        @user = User.all 
-        erb :"users/login"
+ post "/login" do
+        user = User.find_by(username: params[:user][:username])
+        if user && user.authenticate(params[:user][:password])
+            session[:user_id] = user.id 
+            redirect "/users/#{user.id}"
+        else 
+            redirect "/login"
+        end
+    end
+  get "/users/:id" do
+        @user = User.find_by(id: params[:id])
+        erb :"/users/show"
     end 
 
-
-post '/users/login' do
-@user = User.find_by(username: params[:username]) 
-  if @user&.authenticate(params[:password])
-    @current_user = session[:user_id]= @user.id
-    erb :'/users/show'
-    end
-end
-
- get '/users/show' do
-    session.id
-    erb :"users/show"
-  end
-
-
-    get "/logout" do
+get "/logout" do
         session.clear
         redirect '/'
     end 
-
-end 
+  end

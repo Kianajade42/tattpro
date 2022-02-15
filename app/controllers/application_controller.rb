@@ -12,6 +12,7 @@ get "/about" do
 
 erb :"/about"
 end
+
 get "/" do
         erb :welcome, { :locals => params, :layout => :layout }
     end
@@ -23,8 +24,7 @@ get "/" do
    end
    
    def current_user
-   @current_user ||= User.find_by_id(session[:user_id])
-  #  @user = @current_user 
+   @current_user ||= User.find_by_id(id: session[:user_id])
     end
 
 end

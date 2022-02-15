@@ -10,15 +10,15 @@
 <% @tattoos.each do |tattoo| %>
 <p>
 <%# <%if current_user == tattoo.id %> 
-<li><%= tattoo.name%>
+<li><a href="/tattoos/<%= tattoo.name %>">
 on <%= tattoo.client%>
 </li>
-   <form method="POST" action="/tattoos/index">
+   <%# <form method="POST" action="/tattoos/index">
         <input type="hidden" value="DELETE" name="_method"><br>
         <input type="submit" value="Remove">
     </form><br>
-    <%end%>
+    <%end%> 
 <p>
-<%# <% end %> 
+<% end %>
 </ul>
 
