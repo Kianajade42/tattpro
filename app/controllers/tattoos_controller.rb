@@ -1,56 +1,59 @@
 class TattoosController < ApplicationController
-#login
- get '/tattoos' do
- logged_in?
-  @user = current_user 
-  @tattoos = Tattoo.all
-    erb :'/tattoos/index'
-end
- 
-#new artwork
-get '/tattoos/new' do
-    @tattoos = Tattoo.all
-    erb :"/tattoos/new"
-end
-
-#creatingnewtattoo
- post '/tattoos/new' do
-     @tattoos = Tattoo.new(params[:tattoo])
-     @tattoos.save = @current_user
-     erb :"/tattoos/new"
-end
-
-#editing
- get '/tattoos/edit' do
-      @tattoos = Tattoo.all
-        erb :"/tattoos/edit"
-    end
-    #displayportfolio
+        #displayportfolio
 get '/tattoos/show' do
     @tattoos = Tattoo.all
     erb :"tattoos/show"
   end
 
-post '/tattoos/show' do
-    @tattoos = Tattoo.all
-    erb :"tattoos/show"
+#login
+ get '/tattoos' do
+#  logged_in?
+#   @current_user 
+#   @tattoos = Tattoo.find_by(params[:id])
+#   find_by(params[:user_id])
+  @tattoos = Tattoo.all
+    erb :'tattoos/index'
+end
+
+ #new artwork
+get '/tattoos/new' do
+    erb :'tattoos/new'
+end
+
+#creatingnewtattoo
+post '/tattoos' do
+    @tattoos = Tattoo.new(params)
+    @tattoos.user_id= session[:user_id]
+    @tattoos.save
+    redirect "/tattoos/show"
   end
 
-post '/tattoos/:id' do
+post '/tattoos' do
     @tattoos = Tattoo.all
-    erb :"/tattoos/edit"
+    erb :"tattoos/edit"
 end
 
+#editingform
+ get '/tattoos/edit' do
+    # @tattoos = Tattoo.find_by(:id (params[:id])
+      @tattoos = Tattoo.all
+    #  if @tattoos.user == current_user
+        erb :"tattoos/edit"
+    end
+    
 #editingportfolio
 patch '/tattoos' do
-      @tattoos = Tattoo.all
-      @tattoos.update(params[:tattoo])
-         erb  :"/tattoos/show"
+   # @current_user
+      @tattoos = Tattoo.find_by_id(params[:id])
+    
+      @tattoos.update(name: params[:name], client: params[:client], placement: params[:placement], description: params[:discription],)
+         redirect to 'tattoos'
 end
 
-    delete '/tattoos/:id' do 
-        @tattoos = Tattoo.delete(params[:id])
-            erb :'/tattoos/index'
-    end 
- 
+ delete "/tattoos/index"  do
+@tattoos = Tattoo.find_by(params[:tattoo])
+@tattoos.destroy
+
+redirect to '/tattoos'
+end
 end

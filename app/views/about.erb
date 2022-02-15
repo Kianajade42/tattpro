@@ -1,0 +1,8 @@
+
+<h1> About</h1>
+
+ <% if logged_in? %> 
+ <%= current_user.username%> 
+<%else%>
+<a href="/user/new"></a>
+<%end%>

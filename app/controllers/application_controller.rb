@@ -5,9 +5,13 @@ configure do
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, 'top_session'
+    set :session_secret, "secret"
   end
 
+get "/about" do 
+
+erb :"/about"
+end
 get "/" do
         erb :welcome, { :locals => params, :layout => :layout }
     end
@@ -19,7 +23,8 @@ get "/" do
    end
    
    def current_user
-   @user ||= User.find_by_id(session[:user_id]) 
+   @current_user ||= User.find_by_id(session[:user_id])
+  #  @user = @current_user 
     end
 
 end

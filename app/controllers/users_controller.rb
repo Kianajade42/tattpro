@@ -7,10 +7,12 @@ class UsersController < ApplicationController
     end 
 
  post '/users/signup' do 
-      @user = User.create(params)
+  
+      @user = User.new(params)
       @user.save
-      session.id
-       erb :'/users/show'
+      session.id = current_user
+      
+      erb :'/users/show'
   end
 
 
@@ -23,7 +25,7 @@ get "/users/login" do
 post '/users/login' do
 @user = User.find_by(username: params[:username]) 
   if @user&.authenticate(params[:password])
-    session.id
+    @current_user = session[:user_id]= @user.id
     erb :'/users/show'
     end
 end

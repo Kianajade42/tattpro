@@ -1,0 +1,8 @@
+Build an “about” page (about us, about this website, etc…)
+
+An “About” link that shows up on every page, whether the user is logged in or not. You can put this link in your navigation bar if you want.
+
+Clicking the link goes to the “about” page, which will display some info that we will decide later: 
+---
+On the about page, it will conditionally render: if a user is logged in, it will display “Thanks for being a member, <username>” ... if user is not logged in, it will say “please login or signup.”
+

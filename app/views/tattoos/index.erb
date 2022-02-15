@@ -9,10 +9,16 @@
 <%# <input type="image"  alt="Submit" width="48" height="48"> %>
 <% @tattoos.each do |tattoo| %>
 <p>
-<li><%=tattoo.name.upcase %>
-on <%=tattoo.client%>
+<%# <%if current_user == tattoo.id %> 
+<li><%= tattoo.name%>
+on <%= tattoo.client%>
 </li>
+   <form method="POST" action="/tattoos/index">
+        <input type="hidden" value="DELETE" name="_method"><br>
+        <input type="submit" value="Remove">
+    </form><br>
+    <%end%>
 <p>
-<% end %>
+<%# <% end %> 
 </ul>
 
