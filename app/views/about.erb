@@ -1,8 +1,10 @@
 
-<h1> About</h1>
-
- <% if logged_in? %> 
- <%= current_user.username%> 
+<% if logged_in? %> 
+<h1> Thanks for using Tattpro <%=@user.username%>!</h1>
+<p> We hope youre enjoying keeping track of your growing skills!</p>
 <%else%>
-<a href="/user/new"></a>
+<h1>Start using TattPro!</h1>
+<h2><a href="/new">Sign up</a></h2>
 <%end%>
+<p>Tattpro,
+A place for you, an artist, to keep track of and display your favorite pieces!</p>

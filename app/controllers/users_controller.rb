@@ -4,10 +4,12 @@ get "/login" do
   erb :"users/login"
 end
     get "/new" do
-
     erb :"users/new"
     end 
 
+# get "/users/new" do
+#     erb :"users/new"
+#     end 
 
     post "/new" do
         user = User.new(params[:user_id])
@@ -32,6 +34,11 @@ end
   get "/users/:id" do
         @user = User.find_by(id: params[:id])
         erb :"/users/show"
+    end 
+
+    get "/about" do
+        @user = User.find_by(params[:session])
+        erb :"/about"
     end 
 
 get "/logout" do

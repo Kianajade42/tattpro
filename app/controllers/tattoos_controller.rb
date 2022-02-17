@@ -52,14 +52,12 @@ patch '/tattoos' do
 # end
 end
     
-delete  '/tattoos/index' do
-        @tattoos = Tattoo.find_by(id: params[:id])
-        if @tattoos.user == current_user
+delete  '/tattoos/:id' do
+         @tattoos = Tattoo.find_by(id: params[:id])
+       
            @tattoos.destroy
          redirect '/tattoos'
-        else
-             redirect '/tattoos'
-        end
+        
 end
 end
 
