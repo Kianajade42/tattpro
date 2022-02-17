@@ -6,19 +6,21 @@ h1 {text-align: center;}
 h2 {text-align: center;}
 h3 {text-align: center;}
 </style>
-<a href="/tattoos">quick view</a>
+
 </head>
+
 <body>
 
- <% @tattoos.each do |tattoo|  %>
+ <%# <% @tattoos.each do |tattoo|   %>
+
+<h2> <a href="/tattoos/edit/<%= @tattoos.id %>"><%= @tattoos.name %></a>  </h2>
  <p>
-<h2><%= tattoo.name %> </h2>
-<b> Client: <%= tattoo.client %></b><br><br>
-<b> Placement:</b> <%= tattoo.placement %> <br><br>
-<b> Description:</b> <%= tattoo.description %> <br><br>
+<b> Client: <%= @tattoos.client %></b><br><br>
+<b> Placement:</b> <%= @tattoos.placement %> <br><br>
+<b> Description:</b> <%= @tattoos.description %> <br><br>
  </p>
 
-<% end %>
+<%# <% end %> 
 
 </body>
-
+<a href="/tattoos">quick view</a>
